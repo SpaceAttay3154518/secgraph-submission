@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="SecGraph">
+  <rect width="64" height="64" rx="14" fill="#111111"/>
+  <path d="M18 42V22l14-8 14 8v20l-14 8-14-8Z" fill="none" stroke="#38bdf8" stroke-width="4" stroke-linejoin="round"/>
+  <circle cx="32" cy="14" r="5" fill="#22c55e"/>
+  <circle cx="18" cy="42" r="5" fill="#6366f1"/>
+  <circle cx="46" cy="42" r="5" fill="#ef4444"/>
+  <path d="M22 40 32 20l10 20" fill="none" stroke="#e5e7eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
