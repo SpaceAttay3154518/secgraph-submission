@@ -38,6 +38,7 @@ public class ScanOrchestratorService {
         this.scanJobRepository = scanJobRepository;
     }
 
+    // Creates a scan job and kicks off the async scan pipeline
     public ScanJob startScan(String url, int depth, String scanType) {
         String domain = extractDomain(url);
 
@@ -56,6 +57,7 @@ public class ScanOrchestratorService {
         return scanJob;
     }
 
+    // Runs each scan phase in order: crawl, fingerprint, headers, CVE lookup
     @Async("scanExecutor")
     public void executeScan(Target target, ScanJob scanJob, String url, int depth, String scanType) {
         try {
@@ -147,6 +149,7 @@ public class ScanOrchestratorService {
         targetRepository.save(target);
     }
 
+    // Attaches discovered headers to the root endpoint of the target
     private void storeHeaders(Target target, ReconResult.HeaderAnalysis analysis) {
         if (analysis.getHeaders() == null || target.getEndpoints().isEmpty()) return;
 

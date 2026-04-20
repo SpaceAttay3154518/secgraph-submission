@@ -17,6 +17,7 @@ public class AttackSurfaceScorer {
     private final Driver driver;
     private final EndpointRepository endpointRepository;
 
+    // Weights used to compute a weighted risk score for each endpoint
     private static final double PARAM_WEIGHT = 0.30;
     private static final double CVE_WEIGHT = 0.35;
     private static final double FLOW_WEIGHT = 0.15;
@@ -27,6 +28,7 @@ public class AttackSurfaceScorer {
         this.driver = driver;
         this.endpointRepository = endpointRepository;
     }
+    // Scores all endpoints of a target based on parameters, CVEs, flow degree, and headers
     public List<EndpointScore> scoreEndpoints(Long targetId) {
         String cypher = """
             MATCH (t:Target)-[:HAS_ENDPOINT]->(e:Endpoint)
@@ -68,6 +70,7 @@ public class AttackSurfaceScorer {
                 long headerCount = record.get("headerCount").asLong();
                 long relatedCves = record.get("relatedCves").asLong();
 
+                // Missing security headers increase the risk (8 is the expected total)
                 long missingHeaders = Math.max(0, 8 - headerCount);
 
                 double raw = (paramCount * PARAM_WEIGHT)

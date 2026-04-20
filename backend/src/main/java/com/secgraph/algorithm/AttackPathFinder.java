@@ -17,6 +17,7 @@ public class AttackPathFinder {
     public AttackPathFinder(Driver driver) {
         this.driver = driver;
     }
+    // Finds shortest paths from entry endpoints to high-severity CVEs using graph traversal
     public List<AttackPath> findAttackPaths(Long targetId, double minCvss, int limit) {
         String cypher = """
             MATCH (t:Target)-[:HAS_ENDPOINT]->(entry:Endpoint)
@@ -77,6 +78,7 @@ public class AttackPathFinder {
 
         return paths;
     }
+    // Determines how many endpoints are reachable from a given starting point via FLOWS_TO edges
     public BlastRadius findBlastRadius(Long endpointId, int maxDepth) {
         String cypher = """
             MATCH (start:Endpoint) WHERE id(start) = $endpointId

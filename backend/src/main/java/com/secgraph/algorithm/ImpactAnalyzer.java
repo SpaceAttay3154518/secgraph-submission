@@ -17,6 +17,7 @@ public class ImpactAnalyzer {
     public ImpactAnalyzer(Driver driver) {
         this.driver = driver;
     }
+    // Ranks endpoints by how often they appear in shortest paths between other endpoints
     public List<EndpointImpact> computeCentrality(Long targetId, int limit) {
         String cypher = """
             MATCH (t:Target)-[:HAS_ENDPOINT]->(e:Endpoint)
@@ -63,6 +64,7 @@ public class ImpactAnalyzer {
 
         return results;
     }
+    // Counts incoming and outgoing FLOWS_TO edges for each endpoint
     public List<FlowAnalysis> analyzeDataFlow(Long targetId) {
         String cypher = """
             MATCH (t:Target)-[:HAS_ENDPOINT]->(e:Endpoint)
